@@ -14,6 +14,7 @@ find_package(catkin REQUIRED COMPONENTS
 
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
+find_package(PCL REQUIRED)
 
 
 ## Uncomment this if the package has a setup.py. This macro ensures
@@ -132,7 +133,11 @@ include_directories(
 ## Declare a C++ executable
 ## With catkin_make all packages are built within a single CMake context
 ## The recommended prefix ensures that target names across packages don't collide
-# add_executable(${PROJECT_NAME}_node src/point_cloud_corruption_test_node.cpp)
+add_executable(using_subscriber src/using_subscriber.cpp)
+add_executable(using_subscriber_pcl_msg src/using_subscriber_pcl_msg.cpp)
+add_executable(using_waitForMsg src/using_waitForMsg.cpp)
+add_executable(using_waitForMsg_pcl_msg src/using_waitForMsg_pcl_msg.cpp)
+add_executable(shutdown_after_1st_callback src/shutdown_after_1st_callback.cpp)
 
 ## Rename C++ executable without prefix
 ## The above recommended prefix causes long target names, the following renames the
@@ -145,9 +150,11 @@ include_directories(
 # add_dependencies(${PROJECT_NAME}_node ${${PROJECT_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS})
 
 ## Specify libraries to link a library or executable target against
-# target_link_libraries(${PROJECT_NAME}_node
-#   ${catkin_LIBRARIES}
-# )
+target_link_libraries(using_subscriber ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+target_link_libraries(using_subscriber_pcl_msg ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+target_link_libraries(using_waitForMsg ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+target_link_libraries(using_waitForMsg_pcl_msg ${catkin_LIBRARIES} ${PCL_LIBRARIES})
+target_link_libraries(shutdown_after_1st_callback ${catkin_LIBRARIES} ${PCL_LIBRARIES})
 
 #############
 ## Install ##
